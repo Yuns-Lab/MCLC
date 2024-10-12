@@ -3,8 +3,20 @@ cmake_minimum_required(VERSION 3.16)
 
 if("${CONFIG}" STREQUAL "" OR "${CONFIG}" STREQUAL "Debug")
   file(REMOVE_RECURSE
-  "CMakeFiles\\MCLC_autogen.dir\\AutogenUsed.txt"
-  "CMakeFiles\\MCLC_autogen.dir\\ParseCache.txt"
-  "MCLC_autogen"
+  "src\\CMakeFiles\\Core_autogen.dir\\AutogenUsed.txt"
+  "src\\CMakeFiles\\Core_autogen.dir\\ParseCache.txt"
+  "src\\CMakeFiles\\Launcher_autogen.dir\\AutogenUsed.txt"
+  "src\\CMakeFiles\\Launcher_autogen.dir\\ParseCache.txt"
+  "src\\CMakeFiles\\MCLC_autogen.dir\\AutogenUsed.txt"
+  "src\\CMakeFiles\\MCLC_autogen.dir\\ParseCache.txt"
+  "src\\CMakeFiles\\Network_autogen.dir\\AutogenUsed.txt"
+  "src\\CMakeFiles\\Network_autogen.dir\\ParseCache.txt"
+  "src\\CMakeFiles\\Qt_autogen.dir\\AutogenUsed.txt"
+  "src\\CMakeFiles\\Qt_autogen.dir\\ParseCache.txt"
+  "src\\Core_autogen"
+  "src\\Launcher_autogen"
+  "src\\MCLC_autogen"
+  "src\\Network_autogen"
+  "src\\Qt_autogen"
   )
 endif()

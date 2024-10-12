@@ -193,10 +193,7 @@
 	"QT_VERSION_MAJOR" : 6,
 	"QT_VERSION_MINOR" : 8,
 	"SETTINGS_FILE" : "C:/Users/EncVar/CLionProjects/MCLC/cmake-build-debug/CMakeFiles/MCLC_autogen.dir/AutogenUsed.txt",
-	"SOURCES" : 
-	[
-		[ "C:/Users/EncVar/CLionProjects/MCLC/src/main.cpp", "MU", null ]
-	],
+	"SOURCES" : [],
 	"UIC_OPTIONS" : [],
 	"UIC_SEARCH_PATHS" : [],
 	"UIC_SKIP" : [],

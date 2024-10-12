@@ -290,6 +290,9 @@ CMAKE_TAPI:FILEPATH=CMAKE_TAPI-NOTFOUND
 // Studio IDE projects all commands are done without /nologo.
 CMAKE_VERBOSE_MAKEFILE:BOOL=FALSE
 
+//Path to a library.
+LIB_EAY:FILEPATH=D:/Qt/Tools/OpenSSLv3/Win_x64/lib/libcrypto.lib
+
 //Value Computed by CMake
 MCLC_BINARY_DIR:STATIC=C:/Users/EncVar/CLionProjects/MCLC/cmake-build-debug
 
@@ -299,12 +302,18 @@ MCLC_IS_TOP_LEVEL:STATIC=ON
 //Value Computed by CMake
 MCLC_SOURCE_DIR:STATIC=C:/Users/EncVar/CLionProjects/MCLC
 
+//Path to a file.
+OPENSSL_INCLUDE_DIR:PATH=D:/Qt/Tools/OpenSSLv3/Win_x64/include
+
 //Additional directories where find(Qt6 ...) host Qt components
 // are searched
 QT_ADDITIONAL_HOST_PACKAGES_PREFIX_PATH:STRING=
 
 //Additional directories where find(Qt6 ...) components are searched
 QT_ADDITIONAL_PACKAGES_PREFIX_PATH:STRING=
+
+//The directory containing a CMake configuration file for Qt6Concurrent.
+Qt6Concurrent_DIR:PATH=D:/Qt/6.8.0/llvm-mingw_64/lib/cmake/Qt6Concurrent
 
 //The directory containing a CMake configuration file for Qt6CoreTools.
 Qt6CoreTools_DIR:PATH=D:/Qt/6.8.0/llvm-mingw_64/lib/cmake/Qt6CoreTools
@@ -315,11 +324,17 @@ Qt6Core_DIR:PATH=D:/Qt/6.8.0/llvm-mingw_64/lib/cmake/Qt6Core
 //The directory containing a CMake configuration file for Qt6EntryPointPrivate.
 Qt6EntryPointPrivate_DIR:PATH=D:/Qt/6.8.0/llvm-mingw_64/lib/cmake/Qt6EntryPointPrivate
 
+//The directory containing a CMake configuration file for Qt6Network.
+Qt6Network_DIR:PATH=D:/Qt/6.8.0/llvm-mingw_64/lib/cmake/Qt6Network
+
 //The directory containing a CMake configuration file for Qt6ZlibPrivate.
 Qt6ZlibPrivate_DIR:PATH=D:/Qt/6.8.0/llvm-mingw_64/lib/cmake/Qt6ZlibPrivate
 
 //The directory containing a CMake configuration file for Qt6.
 Qt6_DIR:PATH=D:/Qt/6.8.0/llvm-mingw_64/lib/cmake/Qt6
+
+//Path to a library.
+SSL_EAY:FILEPATH=D:/Qt/Tools/OpenSSLv3/Win_x64/lib/libssl.lib
 
 //Path to a program.
 WINDEPLOYQT_EXECUTABLE:FILEPATH=D:/Qt/6.8.0/llvm-mingw_64/bin/windeployqt.exe
@@ -461,7 +476,7 @@ CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_NM
 CMAKE_NM-ADVANCED:INTERNAL=1
 //number of local generators
-CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=1
+CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=2
 //ADVANCED property for variable: CMAKE_OBJCOPY
 CMAKE_OBJCOPY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_OBJDUMP
@@ -517,12 +532,18 @@ CMAKE_STRIP-ADVANCED:INTERNAL=1
 CMAKE_TAPI-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_VERBOSE_MAKEFILE
 CMAKE_VERBOSE_MAKEFILE-ADVANCED:INTERNAL=1
+//Details about finding OpenSSL
+FIND_PACKAGE_MESSAGE_DETAILS_OpenSSL:INTERNAL=[D:/Qt/Tools/OpenSSLv3/Win_x64/lib/libcrypto.lib][D:/Qt/Tools/OpenSSLv3/Win_x64/include][c ][v3.0.15()]
 //Details about finding Threads
 FIND_PACKAGE_MESSAGE_DETAILS_Threads:INTERNAL=[TRUE][v()]
 //Details about finding WrapAtomic
 FIND_PACKAGE_MESSAGE_DETAILS_WrapAtomic:INTERNAL=[1][v()]
 //Test HAVE_STDATOMIC
 HAVE_STDATOMIC:INTERNAL=1
+//ADVANCED property for variable: LIB_EAY
+LIB_EAY-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: OPENSSL_INCLUDE_DIR
+OPENSSL_INCLUDE_DIR-ADVANCED:INTERNAL=1
 //Qt feature: aesni (from target Qt6::Core)
 QT_FEATURE_aesni:INTERNAL=ON
 //Qt feature: alloca (from target Qt6::Core)
@@ -567,6 +588,8 @@ QT_FEATURE_avx512vbmi2:INTERNAL=ON
 QT_FEATURE_avx512vl:INTERNAL=ON
 //Qt feature: backtrace (from target Qt6::Core)
 QT_FEATURE_backtrace:INTERNAL=OFF
+//Qt feature: brotli (from target Qt6::Network)
+QT_FEATURE_brotli:INTERNAL=OFF
 //Qt feature: cborstreamreader (from target Qt6::Core)
 QT_FEATURE_cborstreamreader:INTERNAL=ON
 //Qt feature: cborstreamwriter (from target Qt6::Core)
@@ -619,8 +642,12 @@ QT_FEATURE_developer_build:INTERNAL=OFF
 QT_FEATURE_dladdr:INTERNAL=OFF
 //Qt feature: dlopen (from target Qt6::Core)
 QT_FEATURE_dlopen:INTERNAL=OFF
+//Qt feature: dnslookup (from target Qt6::Network)
+QT_FEATURE_dnslookup:INTERNAL=ON
 //Qt feature: doubleconversion (from target Qt6::Core)
 QT_FEATURE_doubleconversion:INTERNAL=ON
+//Qt feature: dtls (from target Qt6::Network)
+QT_FEATURE_dtls:INTERNAL=ON
 //Qt feature: easingcurve (from target Qt6::Core)
 QT_FEATURE_easingcurve:INTERNAL=ON
 //Qt feature: elf_private_full_version (from target Qt6::Core)
@@ -653,14 +680,20 @@ QT_FEATURE_gestures:INTERNAL=ON
 QT_FEATURE_getauxval:INTERNAL=OFF
 //Qt feature: getentropy (from target Qt6::Core)
 QT_FEATURE_getentropy:INTERNAL=OFF
+//Qt feature: getifaddrs (from target Qt6::Network)
+QT_FEATURE_getifaddrs:INTERNAL=OFF
 //Qt feature: glib (from target Qt6::Core)
 QT_FEATURE_glib:INTERNAL=OFF
 //Qt feature: glibc_fortify_source (from target Qt6::Core)
 QT_FEATURE_glibc_fortify_source:INTERNAL=OFF
+//Qt feature: gssapi (from target Qt6::Network)
+QT_FEATURE_gssapi:INTERNAL=OFF
 //Qt feature: gui (from target Qt6::Core)
 QT_FEATURE_gui:INTERNAL=ON
 //Qt feature: hijricalendar (from target Qt6::Core)
 QT_FEATURE_hijricalendar:INTERNAL=ON
+//Qt feature: http (from target Qt6::Network)
+QT_FEATURE_http:INTERNAL=ON
 //Qt feature: icu (from target Qt6::Core)
 QT_FEATURE_icu:INTERNAL=OFF
 //Qt feature: identityproxymodel (from target Qt6::Core)
@@ -669,6 +702,8 @@ QT_FEATURE_identityproxymodel:INTERNAL=ON
 QT_FEATURE_inotify:INTERNAL=OFF
 //Qt feature: intelcet (from target Qt6::Core)
 QT_FEATURE_intelcet:INTERNAL=ON
+//Qt feature: ipv6ifname (from target Qt6::Network)
+QT_FEATURE_ipv6ifname:INTERNAL=OFF
 //Qt feature: islamiccivilcalendar (from target Qt6::Core)
 QT_FEATURE_islamiccivilcalendar:INTERNAL=ON
 //Qt feature: itemmodel (from target Qt6::Core)
@@ -681,14 +716,22 @@ QT_FEATURE_journald:INTERNAL=OFF
 QT_FEATURE_largefile:INTERNAL=ON
 //Qt feature: libcpp_hardening (from target Qt6::Core)
 QT_FEATURE_libcpp_hardening:INTERNAL=ON
+//Qt feature: libproxy (from target Qt6::Network)
+QT_FEATURE_libproxy:INTERNAL=OFF
 //Qt feature: library (from target Qt6::Core)
 QT_FEATURE_library:INTERNAL=ON
+//Qt feature: libresolv (from target Qt6::Network)
+QT_FEATURE_libresolv:INTERNAL=OFF
 //Qt feature: libstdcpp_assertions (from target Qt6::Core)
 QT_FEATURE_libstdcpp_assertions:INTERNAL=OFF
 //Qt feature: libudev (from target Qt6::Core)
 QT_FEATURE_libudev:INTERNAL=OFF
 //Qt feature: linkat (from target Qt6::Core)
 QT_FEATURE_linkat:INTERNAL=OFF
+//Qt feature: linux_netlink (from target Qt6::Network)
+QT_FEATURE_linux_netlink:INTERNAL=OFF
+//Qt feature: localserver (from target Qt6::Network)
+QT_FEATURE_localserver:INTERNAL=ON
 //Qt feature: localtime_r (from target Qt6::Core)
 QT_FEATURE_localtime_r:INTERNAL=OFF
 //Qt feature: localtime_s (from target Qt6::Core)
@@ -711,10 +754,20 @@ QT_FEATURE_mips_dspr2:INTERNAL=OFF
 QT_FEATURE_neon:INTERNAL=OFF
 //Qt feature: network (from target Qt6::Core)
 QT_FEATURE_network:INTERNAL=ON
+//Qt feature: networkdiskcache (from target Qt6::Network)
+QT_FEATURE_networkdiskcache:INTERNAL=ON
+//Qt feature: networkinterface (from target Qt6::Network)
+QT_FEATURE_networkinterface:INTERNAL=ON
+//Qt feature: networklistmanager (from target Qt6::Network)
+QT_FEATURE_networklistmanager:INTERNAL=ON
+//Qt feature: networkproxy (from target Qt6::Network)
+QT_FEATURE_networkproxy:INTERNAL=ON
 //Qt feature: no_direct_extern_access (from target Qt6::Core)
 QT_FEATURE_no_direct_extern_access:INTERNAL=OFF
 //Qt feature: no_pkg_config (from target Qt6::Core)
 QT_FEATURE_no_pkg_config:INTERNAL=ON
+//Qt feature: ocsp (from target Qt6::Network)
+QT_FEATURE_ocsp:INTERNAL=ON
 //Qt feature: openssl (from target Qt6::Core)
 QT_FEATURE_openssl:INTERNAL=ON
 //Qt feature: openssl_hash (from target Qt6::Core)
@@ -761,6 +814,10 @@ QT_FEATURE_process:INTERNAL=ON
 QT_FEATURE_processenvironment:INTERNAL=ON
 //Qt feature: proxymodel (from target Qt6::Core)
 QT_FEATURE_proxymodel:INTERNAL=ON
+//Qt feature: publicsuffix_qt (from target Qt6::Network)
+QT_FEATURE_publicsuffix_qt:INTERNAL=ON
+//Qt feature: publicsuffix_system (from target Qt6::Network)
+QT_FEATURE_publicsuffix_system:INTERNAL=OFF
 //Qt feature: qqnx_pps (from target Qt6::Core)
 QT_FEATURE_qqnx_pps:INTERNAL=OFF
 //Qt feature: rdrnd (from target Qt6::Core)
@@ -779,8 +836,16 @@ QT_FEATURE_relocatable:INTERNAL=ON
 QT_FEATURE_relro_now_linker:INTERNAL=OFF
 //Qt feature: renameat2 (from target Qt6::Core)
 QT_FEATURE_renameat2:INTERNAL=OFF
+//Qt feature: res_setservers (from target Qt6::Network)
+QT_FEATURE_res_setservers:INTERNAL=OFF
 //Qt feature: rpath (from target Qt6::Core)
 QT_FEATURE_rpath:INTERNAL=OFF
+//Qt feature: schannel (from target Qt6::Network)
+QT_FEATURE_schannel:INTERNAL=ON
+//Qt feature: sctp (from target Qt6::Network)
+QT_FEATURE_sctp:INTERNAL=OFF
+//Qt feature: securetransport (from target Qt6::Network)
+QT_FEATURE_securetransport:INTERNAL=OFF
 //Qt feature: separate_debug_info (from target Qt6::Core)
 QT_FEATURE_separate_debug_info:INTERNAL=ON
 //Qt feature: settings (from target Qt6::Core)
@@ -801,6 +866,8 @@ QT_FEATURE_signaling_nan:INTERNAL=ON
 QT_FEATURE_simulator_and_device:INTERNAL=OFF
 //Qt feature: slog2 (from target Qt6::Core)
 QT_FEATURE_slog2:INTERNAL=OFF
+//Qt feature: socks5 (from target Qt6::Network)
+QT_FEATURE_socks5:INTERNAL=ON
 //Qt feature: sortfilterproxymodel (from target Qt6::Core)
 QT_FEATURE_sortfilterproxymodel:INTERNAL=ON
 //Qt feature: sql (from target Qt6::Core)
@@ -813,6 +880,10 @@ QT_FEATURE_sse3:INTERNAL=ON
 QT_FEATURE_sse4_1:INTERNAL=ON
 //Qt feature: sse4_2 (from target Qt6::Core)
 QT_FEATURE_sse4_2:INTERNAL=ON
+//Qt feature: ssl (from target Qt6::Network)
+QT_FEATURE_ssl:INTERNAL=ON
+//Qt feature: sspi (from target Qt6::Network)
+QT_FEATURE_sspi:INTERNAL=ON
 //Qt feature: ssse3 (from target Qt6::Core)
 QT_FEATURE_ssse3:INTERNAL=ON
 //Qt feature: stack_clash_protection (from target Qt6::Core)
@@ -835,6 +906,8 @@ QT_FEATURE_system_doubleconversion:INTERNAL=OFF
 QT_FEATURE_system_libb2:INTERNAL=OFF
 //Qt feature: system_pcre2 (from target Qt6::Core)
 QT_FEATURE_system_pcre2:INTERNAL=OFF
+//Qt feature: system_proxies (from target Qt6::Network)
+QT_FEATURE_system_proxies:INTERNAL=ON
 //Qt feature: system_zlib (from target Qt6::Core)
 QT_FEATURE_system_zlib:INTERNAL=OFF
 //Qt feature: systemsemaphore (from target Qt6::Core)
@@ -855,12 +928,16 @@ QT_FEATURE_thread:INTERNAL=ON
 QT_FEATURE_timezone:INTERNAL=ON
 //Qt feature: timezone_locale (from target Qt6::Core)
 QT_FEATURE_timezone_locale:INTERNAL=OFF
+//Qt feature: topleveldomain (from target Qt6::Network)
+QT_FEATURE_topleveldomain:INTERNAL=ON
 //Qt feature: translation (from target Qt6::Core)
 QT_FEATURE_translation:INTERNAL=ON
 //Qt feature: transposeproxymodel (from target Qt6::Core)
 QT_FEATURE_transposeproxymodel:INTERNAL=ON
 //Qt feature: trivial_auto_var_init_pattern (from target Qt6::Core)
 QT_FEATURE_trivial_auto_var_init_pattern:INTERNAL=ON
+//Qt feature: udpsocket (from target Qt6::Network)
+QT_FEATURE_udpsocket:INTERNAL=ON
 //Qt feature: use_bfd_linker (from target Qt6::Core)
 QT_FEATURE_use_bfd_linker:INTERNAL=OFF
 //Qt feature: use_gold_linker (from target Qt6::Core)
@@ -891,6 +968,8 @@ QT_FEATURE_xmlstreamreader:INTERNAL=ON
 QT_FEATURE_xmlstreamwriter:INTERNAL=ON
 //Qt feature: zstd (from target Qt6::Core)
 QT_FEATURE_zstd:INTERNAL=OFF
+//ADVANCED property for variable: SSL_EAY
+SSL_EAY-ADVANCED:INTERNAL=1
 //linker supports push/pop state
 _CMAKE_LINKER_PUSHPOP_STATE_SUPPORTED:INTERNAL=TRUE
 //CMAKE_INSTALL_PREFIX during last run
