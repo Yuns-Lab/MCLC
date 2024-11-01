@@ -10,62 +10,67 @@
 #include <QHttpHeaders>
 #include <QNetworkProxy>
 #include <QNetworkAccessManager>
+#include <QMutex>
 
-#include "HttpUtil.h"
+#include "utils/HttpUtil.h"
 
-namespace MCLC {
+namespace MCLC::Downloader {
 
-    struct DownloadTask {
-        QUrl url;
-        QList<QString> paths;
+        extern QMutex mutex;
 
-        DownloadTask(QUrl &_url, QList<QString> &&_paths = {}): url(_url), paths(_paths) {}
+        struct DownloadTask {
+            QUrl url;
+            QList<QString> paths;
 
-        DownloadTask &insertPath(QString &path) {
-            paths.append(QDir::cleanPath(path));
-            return (*this);
-        }
-    };
+            DownloadTask(QUrl &_url, QList<QString> &&_paths = {}): url(_url), paths(_paths) {}
 
-    class DownloadThreadTask : public QRunnable, QObject {
-        int taskIndex = -1;
-        int rangeBegin = -1, rangeEnd = -1;
-        QNetworkAccessManager *parentManager;
-        DownloadThreadTask(QNetworkAccessManager *manager, int index, int begin = -1, int end = -1) :
-            taskIndex(index), rangeBegin(begin), rangeEnd(end), parentManager(manager) {}
-        void run() override {
-            QNetworkRequest request;
-        }
-    };
+            DownloadTask &insertPath(QString &path) {
+                paths.append(QDir::cleanPath(path));
+                return (*this);
+            }
+        };
 
-    struct DownloaderStatus {
-        QString status;
-        QString message;
-        DownloaderStatus(QString &_status, QString &_message): status(_status), message(_message) {}
-    };
+        class DownloadThreadTask : public QRunnable, public QObject {
+            DownloadTask downloadTask;
+            int rangeBegin = -1, rangeEnd = -1;
+            QNetworkAccessManager *manager = new QNetworkAccessManager(this);
+        public:
+            DownloadThreadTask(DownloadTask &task, int begin = -1, int end = -1) :
+                    rangeBegin(begin), rangeEnd(end), downloadTask(task) {}
+            void run() override;
+        signals:
+            void downloadProgress(long long increased);
+        };
 
-    class Downloader : public QObject {
-    private:
+        struct DownloaderStatus {
+            QString status;
+            QString message;
+            DownloaderStatus(QString &_status, QString &_message): status(_status), message(_message) {}
+        };
 
-        QThreadPool *threadPool;
-        QQueue<DownloadThreadTask> threadTasks;
-        QQueue<DownloadThreadTask> retryThreadTasks;
-        QNetworkAccessManager *manager;
-        int concurrency = 64;
-    public:
-        Downloader(QList<DownloadTask> &tasks) {
-            manager = new QNetworkAccessManager(this);
-            threadPool = new QThreadPool(this);
-
-        }
-        inline Downloader &setProxy(QNetworkProxy &proxy) { manager->setProxy(proxy); return (*this); }
-        inline Downloader &concurrent(int n) { this-> concurrency = n; return (*this); }
-        inline Downloader &singleThread() { concurrency = 1; return (*this); }
-        Downloader &start();
-        void cancel();
-        ~Downloader() override { delete manager; delete threadPool; }
-    };
-
-} // MCLC
+        class Downloader : public QObject {
+        private:
+            long long finished = 0, total = 0;
+            QThreadPool *threadPool;
+            QQueue<DownloadThreadTask> threadTasks;
+            QQueue<DownloadThreadTask> retryThreadTasks;
+            QNetworkProxy proxy;
+            int concurrency = 64;
+        public:
+            Downloader(QList<DownloadTask> &tasks) {
+                threadPool = new QThreadPool(this);
+            }
+            inline Downloader &setProxy(QNetworkProxy &proxy) { this->proxy = proxy; return (*this); }
+            inline Downloader &concurrent(int n) { this->concurrency = n; return (*this); }
+            inline Downloader &singleThread() { concurrency = 1; return (*this); }
+            inline Downloader &downloadProgress(long long &_downloaded, long long &_total) {
+                _downloaded = finished, _total = total; return (*this);
+            };
+            Downloader &start();
+            void cancel();
+            ~Downloader() override { delete threadPool; }
+        };
+    }
+// MCLC
 
 #endif //MCLC_DOWNLOADER_H

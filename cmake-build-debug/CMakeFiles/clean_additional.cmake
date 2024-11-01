@@ -11,12 +11,9 @@ if("${CONFIG}" STREQUAL "" OR "${CONFIG}" STREQUAL "Debug")
   "src\\CMakeFiles\\MCLC_autogen.dir\\ParseCache.txt"
   "src\\CMakeFiles\\Network_autogen.dir\\AutogenUsed.txt"
   "src\\CMakeFiles\\Network_autogen.dir\\ParseCache.txt"
-  "src\\CMakeFiles\\Qt_autogen.dir\\AutogenUsed.txt"
-  "src\\CMakeFiles\\Qt_autogen.dir\\ParseCache.txt"
   "src\\Core_autogen"
   "src\\Launcher_autogen"
   "src\\MCLC_autogen"
   "src\\Network_autogen"
-  "src\\Qt_autogen"
   )
 endif()

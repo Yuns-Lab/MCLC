@@ -1,14 +1,11 @@
 C:/Users/EncVar/CLionProjects/MCLC/cmake-build-debug/CMakeFiles/edit_cache.dir
 C:/Users/EncVar/CLionProjects/MCLC/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-C:/Users/EncVar/CLionProjects/MCLC/cmake-build-debug/src/CMakeFiles/Qt.dir
 C:/Users/EncVar/CLionProjects/MCLC/cmake-build-debug/src/CMakeFiles/Launcher.dir
 C:/Users/EncVar/CLionProjects/MCLC/cmake-build-debug/src/CMakeFiles/Core.dir
 C:/Users/EncVar/CLionProjects/MCLC/cmake-build-debug/src/CMakeFiles/Network.dir
 C:/Users/EncVar/CLionProjects/MCLC/cmake-build-debug/src/CMakeFiles/MCLC.dir
 C:/Users/EncVar/CLionProjects/MCLC/cmake-build-debug/src/CMakeFiles/edit_cache.dir
 C:/Users/EncVar/CLionProjects/MCLC/cmake-build-debug/src/CMakeFiles/rebuild_cache.dir
-C:/Users/EncVar/CLionProjects/MCLC/cmake-build-debug/src/CMakeFiles/Qt_autogen_timestamp_deps.dir
-C:/Users/EncVar/CLionProjects/MCLC/cmake-build-debug/src/CMakeFiles/Qt_autogen.dir
 C:/Users/EncVar/CLionProjects/MCLC/cmake-build-debug/src/CMakeFiles/Launcher_autogen_timestamp_deps.dir
 C:/Users/EncVar/CLionProjects/MCLC/cmake-build-debug/src/CMakeFiles/Launcher_autogen.dir
 C:/Users/EncVar/CLionProjects/MCLC/cmake-build-debug/src/CMakeFiles/Core_autogen_timestamp_deps.dir

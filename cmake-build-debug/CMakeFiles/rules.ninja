@@ -20,22 +20,33 @@ rule CUSTOM_COMMAND
 
 
 #############################################
-# Rule for compiling CXX files.
+# Rule for generating CXX dependencies.
 
-rule CXX_COMPILER__Qt_unscanned_Debug
+rule CXX_SCAN__Launcher_Debug
   depfile = $DEP_FILE
-  deps = gcc
-  command = ${LAUNCHER}${CODE_CHECK}C:\Users\EncVar\AppData\Local\Programs\CLion\bin\mingw\bin\g++.exe $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE -o $out -c $in
-  description = Building CXX object $out
+  command = C:\Windows\system32\cmd.exe /C ""D:/LLVM-MinGW/llvm-mingw-20241015-ucrt-x86_64/bin/clang-scan-deps.exe" -format=p1689 -- D:\LLVM-MinGW\llvm-mingw-20241015-ucrt-x86_64\bin\c++.exe $DEFINES $INCLUDES $FLAGS -x c++ $in -c -o $OBJ_FILE -resource-dir "D:/LLVM-MinGW/llvm-mingw-20241015-ucrt-x86_64/lib/clang/19" -MT $DYNDEP_INTERMEDIATE_FILE -MD -MF $DEP_FILE > $DYNDEP_INTERMEDIATE_FILE.tmp && "C:/Users/EncVar/AppData/Local/Programs/CLion/bin/cmake/win/x64/bin/cmake.exe" -E rename $DYNDEP_INTERMEDIATE_FILE.tmp $DYNDEP_INTERMEDIATE_FILE"
+  description = Scanning $in for CXX dependencies
 
 
 #############################################
-# Rule for linking CXX shared library.
+# Rule to generate ninja dyndep files for CXX.
 
-rule CXX_SHARED_LIBRARY_LINKER__Qt_Debug
-  command = C:\Windows\system32\cmd.exe /C "$PRE_LINK && C:\Users\EncVar\AppData\Local\Programs\CLion\bin\mingw\bin\g++.exe $LANGUAGE_COMPILE_FLAGS $ARCH_FLAGS $LINK_FLAGS -shared -o $TARGET_FILE -Wl,--out-implib,$TARGET_IMPLIB -Wl,--major-image-version,0,--minor-image-version,0 $in $LINK_PATH $LINK_LIBRARIES && $POST_BUILD"
-  description = Linking CXX shared library $TARGET_FILE
-  restat = $RESTAT
+rule CXX_DYNDEP__Launcher_Debug
+  command = C:\Users\EncVar\AppData\Local\Programs\CLion\bin\cmake\win\x64\bin\cmake.exe -E cmake_ninja_dyndep --tdi=src\CMakeFiles\Launcher.dir\CXXDependInfo.json --lang=CXX --modmapfmt=clang --dd=$out @$out.rsp
+  description = Generating CXX dyndep file $out
+  rspfile = $out.rsp
+  rspfile_content = $in
+  restat = 1
+
+
+#############################################
+# Rule for compiling CXX files.
+
+rule CXX_COMPILER__Launcher_scanned_Debug
+  depfile = $DEP_FILE
+  deps = gcc
+  command = ${LAUNCHER}${CODE_CHECK}D:\LLVM-MinGW\llvm-mingw-20241015-ucrt-x86_64\bin\c++.exe $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE @$DYNDEP_MODULE_MAP_FILE -o $out -c $in
+  description = Building CXX object $out
 
 
 #############################################
@@ -44,7 +55,7 @@ rule CXX_SHARED_LIBRARY_LINKER__Qt_Debug
 rule CXX_COMPILER__Launcher_unscanned_Debug
   depfile = $DEP_FILE
   deps = gcc
-  command = ${LAUNCHER}${CODE_CHECK}C:\Users\EncVar\AppData\Local\Programs\CLion\bin\mingw\bin\g++.exe $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE -o $out -c $in
+  command = ${LAUNCHER}${CODE_CHECK}D:\LLVM-MinGW\llvm-mingw-20241015-ucrt-x86_64\bin\c++.exe $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE -o $out -c $in
   description = Building CXX object $out
 
 
@@ -52,9 +63,39 @@ rule CXX_COMPILER__Launcher_unscanned_Debug
 # Rule for linking CXX shared library.
 
 rule CXX_SHARED_LIBRARY_LINKER__Launcher_Debug
-  command = C:\Windows\system32\cmd.exe /C "$PRE_LINK && C:\Users\EncVar\AppData\Local\Programs\CLion\bin\mingw\bin\g++.exe $LANGUAGE_COMPILE_FLAGS $ARCH_FLAGS $LINK_FLAGS -shared -o $TARGET_FILE -Wl,--out-implib,$TARGET_IMPLIB -Wl,--major-image-version,0,--minor-image-version,0 $in $LINK_PATH $LINK_LIBRARIES && $POST_BUILD"
+  command = C:\Windows\system32\cmd.exe /C "$PRE_LINK && D:\LLVM-MinGW\llvm-mingw-20241015-ucrt-x86_64\bin\c++.exe $LANGUAGE_COMPILE_FLAGS $ARCH_FLAGS $LINK_FLAGS -shared -o $TARGET_FILE -Wl,--out-implib,$TARGET_IMPLIB -Wl,--major-image-version,0,--minor-image-version,0 $in $LINK_PATH $LINK_LIBRARIES && $POST_BUILD"
   description = Linking CXX shared library $TARGET_FILE
   restat = $RESTAT
+
+
+#############################################
+# Rule for generating CXX dependencies.
+
+rule CXX_SCAN__Core_Debug
+  depfile = $DEP_FILE
+  command = C:\Windows\system32\cmd.exe /C ""D:/LLVM-MinGW/llvm-mingw-20241015-ucrt-x86_64/bin/clang-scan-deps.exe" -format=p1689 -- D:\LLVM-MinGW\llvm-mingw-20241015-ucrt-x86_64\bin\c++.exe $DEFINES $INCLUDES $FLAGS -x c++ $in -c -o $OBJ_FILE -resource-dir "D:/LLVM-MinGW/llvm-mingw-20241015-ucrt-x86_64/lib/clang/19" -MT $DYNDEP_INTERMEDIATE_FILE -MD -MF $DEP_FILE > $DYNDEP_INTERMEDIATE_FILE.tmp && "C:/Users/EncVar/AppData/Local/Programs/CLion/bin/cmake/win/x64/bin/cmake.exe" -E rename $DYNDEP_INTERMEDIATE_FILE.tmp $DYNDEP_INTERMEDIATE_FILE"
+  description = Scanning $in for CXX dependencies
+
+
+#############################################
+# Rule to generate ninja dyndep files for CXX.
+
+rule CXX_DYNDEP__Core_Debug
+  command = C:\Users\EncVar\AppData\Local\Programs\CLion\bin\cmake\win\x64\bin\cmake.exe -E cmake_ninja_dyndep --tdi=src\CMakeFiles\Core.dir\CXXDependInfo.json --lang=CXX --modmapfmt=clang --dd=$out @$out.rsp
+  description = Generating CXX dyndep file $out
+  rspfile = $out.rsp
+  rspfile_content = $in
+  restat = 1
+
+
+#############################################
+# Rule for compiling CXX files.
+
+rule CXX_COMPILER__Core_scanned_Debug
+  depfile = $DEP_FILE
+  deps = gcc
+  command = ${LAUNCHER}${CODE_CHECK}D:\LLVM-MinGW\llvm-mingw-20241015-ucrt-x86_64\bin\c++.exe $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE @$DYNDEP_MODULE_MAP_FILE -o $out -c $in
+  description = Building CXX object $out
 
 
 #############################################
@@ -63,7 +104,7 @@ rule CXX_SHARED_LIBRARY_LINKER__Launcher_Debug
 rule CXX_COMPILER__Core_unscanned_Debug
   depfile = $DEP_FILE
   deps = gcc
-  command = ${LAUNCHER}${CODE_CHECK}C:\Users\EncVar\AppData\Local\Programs\CLion\bin\mingw\bin\g++.exe $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE -o $out -c $in
+  command = ${LAUNCHER}${CODE_CHECK}D:\LLVM-MinGW\llvm-mingw-20241015-ucrt-x86_64\bin\c++.exe $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE -o $out -c $in
   description = Building CXX object $out
 
 
@@ -71,9 +112,39 @@ rule CXX_COMPILER__Core_unscanned_Debug
 # Rule for linking CXX shared library.
 
 rule CXX_SHARED_LIBRARY_LINKER__Core_Debug
-  command = C:\Windows\system32\cmd.exe /C "$PRE_LINK && C:\Users\EncVar\AppData\Local\Programs\CLion\bin\mingw\bin\g++.exe $LANGUAGE_COMPILE_FLAGS $ARCH_FLAGS $LINK_FLAGS -shared -o $TARGET_FILE -Wl,--out-implib,$TARGET_IMPLIB -Wl,--major-image-version,0,--minor-image-version,0 $in $LINK_PATH $LINK_LIBRARIES && $POST_BUILD"
+  command = C:\Windows\system32\cmd.exe /C "$PRE_LINK && D:\LLVM-MinGW\llvm-mingw-20241015-ucrt-x86_64\bin\c++.exe $LANGUAGE_COMPILE_FLAGS $ARCH_FLAGS $LINK_FLAGS -shared -o $TARGET_FILE -Wl,--out-implib,$TARGET_IMPLIB -Wl,--major-image-version,0,--minor-image-version,0 $in $LINK_PATH $LINK_LIBRARIES && $POST_BUILD"
   description = Linking CXX shared library $TARGET_FILE
   restat = $RESTAT
+
+
+#############################################
+# Rule for generating CXX dependencies.
+
+rule CXX_SCAN__Network_Debug
+  depfile = $DEP_FILE
+  command = C:\Windows\system32\cmd.exe /C ""D:/LLVM-MinGW/llvm-mingw-20241015-ucrt-x86_64/bin/clang-scan-deps.exe" -format=p1689 -- D:\LLVM-MinGW\llvm-mingw-20241015-ucrt-x86_64\bin\c++.exe $DEFINES $INCLUDES $FLAGS -x c++ $in -c -o $OBJ_FILE -resource-dir "D:/LLVM-MinGW/llvm-mingw-20241015-ucrt-x86_64/lib/clang/19" -MT $DYNDEP_INTERMEDIATE_FILE -MD -MF $DEP_FILE > $DYNDEP_INTERMEDIATE_FILE.tmp && "C:/Users/EncVar/AppData/Local/Programs/CLion/bin/cmake/win/x64/bin/cmake.exe" -E rename $DYNDEP_INTERMEDIATE_FILE.tmp $DYNDEP_INTERMEDIATE_FILE"
+  description = Scanning $in for CXX dependencies
+
+
+#############################################
+# Rule to generate ninja dyndep files for CXX.
+
+rule CXX_DYNDEP__Network_Debug
+  command = C:\Users\EncVar\AppData\Local\Programs\CLion\bin\cmake\win\x64\bin\cmake.exe -E cmake_ninja_dyndep --tdi=src\CMakeFiles\Network.dir\CXXDependInfo.json --lang=CXX --modmapfmt=clang --dd=$out @$out.rsp
+  description = Generating CXX dyndep file $out
+  rspfile = $out.rsp
+  rspfile_content = $in
+  restat = 1
+
+
+#############################################
+# Rule for compiling CXX files.
+
+rule CXX_COMPILER__Network_scanned_Debug
+  depfile = $DEP_FILE
+  deps = gcc
+  command = ${LAUNCHER}${CODE_CHECK}D:\LLVM-MinGW\llvm-mingw-20241015-ucrt-x86_64\bin\c++.exe $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE @$DYNDEP_MODULE_MAP_FILE -o $out -c $in
+  description = Building CXX object $out
 
 
 #############################################
@@ -82,7 +153,7 @@ rule CXX_SHARED_LIBRARY_LINKER__Core_Debug
 rule CXX_COMPILER__Network_unscanned_Debug
   depfile = $DEP_FILE
   deps = gcc
-  command = ${LAUNCHER}${CODE_CHECK}C:\Users\EncVar\AppData\Local\Programs\CLion\bin\mingw\bin\g++.exe $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE -o $out -c $in
+  command = ${LAUNCHER}${CODE_CHECK}D:\LLVM-MinGW\llvm-mingw-20241015-ucrt-x86_64\bin\c++.exe $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE -o $out -c $in
   description = Building CXX object $out
 
 
@@ -90,9 +161,39 @@ rule CXX_COMPILER__Network_unscanned_Debug
 # Rule for linking CXX shared library.
 
 rule CXX_SHARED_LIBRARY_LINKER__Network_Debug
-  command = C:\Windows\system32\cmd.exe /C "$PRE_LINK && C:\Users\EncVar\AppData\Local\Programs\CLion\bin\mingw\bin\g++.exe $LANGUAGE_COMPILE_FLAGS $ARCH_FLAGS $LINK_FLAGS -shared -o $TARGET_FILE -Wl,--out-implib,$TARGET_IMPLIB -Wl,--major-image-version,0,--minor-image-version,0 $in $LINK_PATH $LINK_LIBRARIES && $POST_BUILD"
+  command = C:\Windows\system32\cmd.exe /C "$PRE_LINK && D:\LLVM-MinGW\llvm-mingw-20241015-ucrt-x86_64\bin\c++.exe $LANGUAGE_COMPILE_FLAGS $ARCH_FLAGS $LINK_FLAGS -shared -o $TARGET_FILE -Wl,--out-implib,$TARGET_IMPLIB -Wl,--major-image-version,0,--minor-image-version,0 $in $LINK_PATH $LINK_LIBRARIES && $POST_BUILD"
   description = Linking CXX shared library $TARGET_FILE
   restat = $RESTAT
+
+
+#############################################
+# Rule for generating CXX dependencies.
+
+rule CXX_SCAN__MCLC_Debug
+  depfile = $DEP_FILE
+  command = C:\Windows\system32\cmd.exe /C ""D:/LLVM-MinGW/llvm-mingw-20241015-ucrt-x86_64/bin/clang-scan-deps.exe" -format=p1689 -- D:\LLVM-MinGW\llvm-mingw-20241015-ucrt-x86_64\bin\c++.exe $DEFINES $INCLUDES $FLAGS -x c++ $in -c -o $OBJ_FILE -resource-dir "D:/LLVM-MinGW/llvm-mingw-20241015-ucrt-x86_64/lib/clang/19" -MT $DYNDEP_INTERMEDIATE_FILE -MD -MF $DEP_FILE > $DYNDEP_INTERMEDIATE_FILE.tmp && "C:/Users/EncVar/AppData/Local/Programs/CLion/bin/cmake/win/x64/bin/cmake.exe" -E rename $DYNDEP_INTERMEDIATE_FILE.tmp $DYNDEP_INTERMEDIATE_FILE"
+  description = Scanning $in for CXX dependencies
+
+
+#############################################
+# Rule to generate ninja dyndep files for CXX.
+
+rule CXX_DYNDEP__MCLC_Debug
+  command = C:\Users\EncVar\AppData\Local\Programs\CLion\bin\cmake\win\x64\bin\cmake.exe -E cmake_ninja_dyndep --tdi=src\CMakeFiles\MCLC.dir\CXXDependInfo.json --lang=CXX --modmapfmt=clang --dd=$out @$out.rsp
+  description = Generating CXX dyndep file $out
+  rspfile = $out.rsp
+  rspfile_content = $in
+  restat = 1
+
+
+#############################################
+# Rule for compiling CXX files.
+
+rule CXX_COMPILER__MCLC_scanned_Debug
+  depfile = $DEP_FILE
+  deps = gcc
+  command = ${LAUNCHER}${CODE_CHECK}D:\LLVM-MinGW\llvm-mingw-20241015-ucrt-x86_64\bin\c++.exe $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE @$DYNDEP_MODULE_MAP_FILE -o $out -c $in
+  description = Building CXX object $out
 
 
 #############################################
@@ -101,16 +202,16 @@ rule CXX_SHARED_LIBRARY_LINKER__Network_Debug
 rule CXX_COMPILER__MCLC_unscanned_Debug
   depfile = $DEP_FILE
   deps = gcc
-  command = ${LAUNCHER}${CODE_CHECK}C:\Users\EncVar\AppData\Local\Programs\CLion\bin\mingw\bin\g++.exe $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE -o $out -c $in
+  command = ${LAUNCHER}${CODE_CHECK}D:\LLVM-MinGW\llvm-mingw-20241015-ucrt-x86_64\bin\c++.exe $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE -o $out -c $in
   description = Building CXX object $out
 
 
 #############################################
-# Rule for linking CXX executable.
+# Rule for linking CXX shared library.
 
-rule CXX_EXECUTABLE_LINKER__MCLC_Debug
-  command = C:\Windows\system32\cmd.exe /C "$PRE_LINK && C:\Users\EncVar\AppData\Local\Programs\CLion\bin\mingw\bin\g++.exe $FLAGS $LINK_FLAGS $in -o $TARGET_FILE -Wl,--out-implib,$TARGET_IMPLIB -Wl,--major-image-version,0,--minor-image-version,0 $LINK_PATH $LINK_LIBRARIES && $POST_BUILD"
-  description = Linking CXX executable $TARGET_FILE
+rule CXX_SHARED_LIBRARY_LINKER__MCLC_Debug
+  command = C:\Windows\system32\cmd.exe /C "$PRE_LINK && D:\LLVM-MinGW\llvm-mingw-20241015-ucrt-x86_64\bin\c++.exe $LANGUAGE_COMPILE_FLAGS $ARCH_FLAGS $LINK_FLAGS -shared -o $TARGET_FILE -Wl,--out-implib,$TARGET_IMPLIB -Wl,--major-image-version,0,--minor-image-version,0 $in $LINK_PATH $LINK_LIBRARIES && $POST_BUILD"
+  description = Linking CXX shared library $TARGET_FILE
   restat = $RESTAT
 
 

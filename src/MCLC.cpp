@@ -1,7 +1,6 @@
-#include <QCoreApplication>
-
-//MCLC Main
-int main(int argc, char *argv[]) {
-    QCoreApplication app(argc, argv);
-    return QCoreApplication::exec();
+//MCLC
+extern "C" {
+    void deleteString(const char *ptr) {
+        delete [] ptr;
+    }
 }
