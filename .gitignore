@@ -1,0 +1,10 @@
+.idea/
+.cache/
+.vscode/
+build/
+
+cmake-build-*/
+.clang-format
+.clangd
+conan/CMakeUserPresets.json
+CMakeUserPresets.json
