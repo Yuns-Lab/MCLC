@@ -34,10 +34,10 @@ namespace MCLC {
         };
         std::cout << "?\n";
         while(thread_num--)
-            threads.emplace_back(thread_task, download_base, callback);
+            threads.push_back(std::async(thread_task, download_base, callback));
         for(auto &v : threads)
-            if(v.joinable())
-                v.join(); //Wait multi-thread tasks
+            if(v.valid())
+                v.wait();//Wait multi-thread tasks
     }
 
     void Downloader::ThreadPool::insert(const Downloader::DownloadTask &task) {
@@ -96,16 +96,18 @@ namespace MCLC {
         cout << "Complete" << endl;
     }
 
-    bool Downloader::start(std::ostream &out, basic_progress progress) {
+    bool Downloader::start(std::ostream &out, basic_progress &&progress) {
+        if(!manager.valid())
+            return false;
         using namespace std;
         uint64_t previous = 0;
         cout << "Downloading..." << endl;
         mtx.unlock();
-        manager.detach();
 
         int slept_time = 0;
         int download_speed = 0;
-        while(thread_) {
+
+        while(manager.valid()) {
             this_thread::sleep_for(1ms);
             slept_time++; //Update slept time
 
@@ -121,12 +123,6 @@ namespace MCLC {
         }
         cout << "Downloaded" << endl;
         return true; //Finished
-    }
-
-    void Downloader::join() {
-        if(manager.joinable()) //If task list contains files having a full-range tag, the download process will continue.
-            manager.join();
-        return;
     }
 
     void Downloader::download(const DownloadTask& task, basic_callback callback) {
@@ -150,11 +146,11 @@ namespace MCLC {
             downloaded_bytes.store(current);
             return !cancelled;
         };
-        std::cout << "Downloading " << task.filename << '.' << task.index << "..." << std::endl;
+        //std::cout << "Downloading " << task.filename << '.' << task.index << "..." << std::endl;
         //Save temp chunks
         client.set_read_timeout(60);
         client.set_follow_location(true);
-        if(const auto response = client.Get(host_and_path.second, progress)) {
+        if(const auto response1st = client.Get(host_and_path.second, progress)) {
             std::fstream output;
             const auto filepath = std::filesystem::path(task.path) / (task.filename + '.' + std::to_string(task.index) + ".mclcd");
             if(!std::filesystem::exists(task.path))
@@ -164,10 +160,37 @@ namespace MCLC {
                 
             output.open(filepath, std::ios::out);
             if(output.is_open())
-                output << response->body;
+                output << response1st->body;
             output.close();
-        }
-        std::cout << "Downloaded " << task.filename << '.' << task.index << std::endl;
+        } else if(const auto response2nd = client.Get(host_and_path.second, progress)) {
+            std::fstream output;
+            const auto filepath = std::filesystem::path(task.path) / (task.filename + '.' + std::to_string(task.index) + ".mclcd");
+            if(!std::filesystem::exists(task.path))
+                std::filesystem::create_directories(task.path);
+            if(std::filesystem::exists(filepath))
+                std::filesystem::remove(filepath);
+
+            output.open(filepath, std::ios::out);
+            if(output.is_open())
+                output << response2nd->body;
+            output.close();
+        } else if(const auto response3rd = client.Get(host_and_path.second, progress)) {
+            std::fstream output;
+            const auto filepath = std::filesystem::path(task.path) / (task.filename + '.' + std::to_string(task.index) + ".mclcd");
+            if(!std::filesystem::exists(task.path))
+                std::filesystem::create_directories(task.path);
+            if(std::filesystem::exists(filepath))
+                std::filesystem::remove(filepath);
+
+            output.open(filepath, std::ios::out);
+            if(output.is_open())
+                output << response3rd->body;
+            output.close();
+        } else {
+            throw DownloadException("Download failed. Please check your network connection and firewall settings.");
+            return;
+        } //Download failed
+        //std::cout << "Downloaded " << task.filename << '.' << task.index << std::endl;
     }
 
     void Downloader::merge() {

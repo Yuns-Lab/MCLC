@@ -4,6 +4,7 @@
 #include <vector>
 #include <string>
 #include <thread>
+#include <future>
 #include <iostream>
 #include <queue>
 #include <functional>
@@ -36,7 +37,7 @@ namespace MCLC {
         class ThreadPool {
             std::recursive_mutex mtx;
             std::queue <DownloadTask> scheduled_tasks;
-            std::vector <std::thread> threads;
+            std::vector <std::future<void>> threads;
             std::atomic <bool> _finished;
         public:
             void insert(const DownloadTask &task);
@@ -70,18 +71,17 @@ namespace MCLC {
             pool.start(_func, _callback, concurrency);
         }
 
-        std::thread manager; //Create download manager thread
+        std::future<void> manager; //Create download manager thread
         uint64_t total_size = 0;
 
     public:
 
         explicit Downloader(const int &_concurrency): concurrency(_concurrency) {
             mtx.lock();
-            manager = std::thread{&Downloader::manager_base, this, std::ref(Downloader::download), std::ref(Downloader::progress_callback)};
+            manager = std::async(&Downloader::manager_base, this, std::ref(Downloader::download), std::ref(Downloader::progress_callback));
         }
         void process(const std::string&, const std::string&, bool);
-        bool start(std::ostream&, std::function<bool(int, int, int, int)>);
-        void join();
+        bool start(std::ostream&, basic_progress&&);
         void merge();
         void cancel();
         void terminate();

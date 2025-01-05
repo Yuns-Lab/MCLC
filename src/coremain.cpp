@@ -27,14 +27,13 @@ int main(/*int argc, char* argv[]*/) {
      std::string url = R"(https://wirelesscdn-download.xuexi.cn/publish/xuexi_android/latest/xuexi_android_10002068.apk)", path = "/mnt/c/Users/EncVar/CLionProjects/MCLC-2/cmake-build-debug/1.21.json/";
      downloader.process(url, path, true);
      try {
-         downloader.start(std::cout, [](int percentage, int, int, int download_speed){
-             //std::cout << percentage << "% " << download_speed << "\r";
+         downloader.start(std::cout, [](int percentage, int, int, int download_speed) {
+             std::cout << percentage << "% " << download_speed << "\r";
              return false;
          });
      } catch (std::exception e) {
          std::cout << e.what();
      }
-     downloader.join();
      downloader.merge();
     return 0;
 }
